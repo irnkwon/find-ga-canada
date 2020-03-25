@@ -8,6 +8,7 @@ package com.test.GMHKCensusApp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class GMHKHomeController {
@@ -15,12 +16,18 @@ public class GMHKHomeController {
     public String goToHomePage() { return "GMHKHome"; }
 
     @GetMapping("/level")
-    public String goToLevelPage() {
+    public String goToLevelPage(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "GMHKLogin";
+        }
         return "GMHKFindGeoAreaByLevel";
     }
 
     @GetMapping("/keyword")
-    public String goToKeywordPage() {
+    public String goToKeywordPage(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "GMHKLogin";
+        }
         return "GMHKFindGeoAreaByKeyword";
     }
 

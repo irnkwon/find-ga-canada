@@ -24,19 +24,22 @@
             <c:if test="${!empty(ages)}">
                 <c:forEach var="age" items="${ages}">
                     <tr>
-                        <td>${name}</td>
+                        <td>${age.gmhkGeographicArea.name}</td>
                     </tr>
                     <tr>
-                        <td><strong>Geographic Area ID:</strong> ${geoAreaId}</td>
+                        <td>
+                            <strong>Geographic Area ID:</strong>
+                            ${age.gmhkGeographicArea.geographicAreaID}
+                        </td>
                     </tr>
                     <tr>
-                        <td><strong>Code:</strong> ${code}</td>
+                        <td><strong>Code:</strong> ${age.gmhkGeographicArea.code}</td>
                     </tr>
                     <tr>
-                        <td><strong>Level:</strong> ${level}</td>
+                        <td><strong>Level:</strong> ${age.gmhkGeographicArea.level}</td>
                     </tr>
                     <tr>
-                        <td><strong>Alternative Code:</strong> ${altCode}</td>
+                        <td><strong>Alternative Code:</strong> ${age.gmhkGeographicArea.alternativeCode}</td>
                     </tr>
                     <tr>
                         <td>

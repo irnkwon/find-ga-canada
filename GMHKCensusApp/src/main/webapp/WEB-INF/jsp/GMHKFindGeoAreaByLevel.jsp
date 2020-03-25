@@ -39,10 +39,7 @@
                         <td>${geoArea.code}</td>
                         <td>${geoArea.level}</td>
                         <td>
-                            <a href="<c:url value="/details?geoAreaId=${geoArea.geographicAreaID}
-                                &name=${geoArea.name} &code=${geoArea.code}
-                                &altCode=${geoArea.alternativeCode}&level=${geoArea.level}" />"
-                            >
+                            <a href="<c:url value="/details?altCode=${geoArea.alternativeCode}" />">
                                 ${geoArea.name}
                             </a>
                         </td>

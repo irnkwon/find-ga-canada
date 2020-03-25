@@ -7,12 +7,15 @@
 package com.test.GMHKCensusApp.controllers;
 
 import com.test.GMHKCensusApp.data.entity.GMHKAge;
+import com.test.GMHKCensusApp.data.entity.GMHKUser;
 import com.test.GMHKCensusApp.data.repository.GMHKAgeRepository;
+import com.test.GMHKCensusApp.data.repository.GMHKUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,17 +24,20 @@ public class GMHKGeoAreaDetailsController {
     @Autowired
     private GMHKAgeRepository gmhkAgeRepository;
 
-    @GetMapping("/details")
-    public String showDetails(@RequestParam("name") String name,
-        @RequestParam("code") int code, @RequestParam("altCode") int altCode,
-        @RequestParam("level") int level, @RequestParam("geoAreaId") int geoAreaId,
-        Model model) {
+    @Autowired
+    GMHKUserRepository gmhkUserRepository;
 
-        model.addAttribute("name", name.replaceAll("[+]", " "));
-        model.addAttribute("code", code);
-        model.addAttribute("altCode", altCode);
-        model.addAttribute("level", level);
-        model.addAttribute("geoAreaId", geoAreaId);
+    @GetMapping("/details")
+    public String showDetails(@RequestParam("altCode") int altCode,
+        Model model, HttpSession session, GMHKUser gmhkUser) {
+
+        if (session.getAttribute("user") == null) {
+            return "GMHKLogin";
+        }
+
+        gmhkUser = (GMHKUser) session.getAttribute("user");
+        gmhkUser.setLastGeoArea(altCode);
+        gmhkUserRepository.save(gmhkUser);
 
         List<GMHKAge> ages;
         ages = gmhkAgeRepository.findByGeographicAreaAltCode(altCode);

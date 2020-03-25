@@ -147,3 +147,7 @@ input {
 .sign-up-wrapper > a {
 	margin-left: 5px;
 }
+
+.success-msg {
+	color: #4CAF50;
+}

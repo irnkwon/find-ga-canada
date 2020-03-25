@@ -4,6 +4,7 @@
     Date: 2020-03-22
     Time: 11:18 p.m.
 --%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +18,11 @@
         <jsp:include page="GMHKBanner.jsp" />
         <h1>Login</h1>
         <h3>Sign in with your FindGACanada email</h3>
-        <form action="/findByKeyword" method="get" class="auth-form">
-            <input type="email" placeholder="Email" class="auth-input" />
-            <input type="password" placeholder="Password" class="auth-input" />
+        <form:form action="/login" method="post" class="auth-form" modelAttribute="login">
+            <form:input type="email" placeholder="Email" class="auth-input" path="email" />
+            <form:input type="password" placeholder="Password" class="auth-input" path="password" />
             <input type="submit" value="Sign in" class="search-btn" />
-        </form>
+        </form:form>
         <div class="sign-up-wrapper">
             New to FindGACanada? <a href="/register"><strong>Register now</strong></a>
         </div>
