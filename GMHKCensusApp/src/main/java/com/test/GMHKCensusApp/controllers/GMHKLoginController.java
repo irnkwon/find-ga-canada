@@ -12,11 +12,10 @@ import com.test.GMHKCensusApp.data.repository.GMHKUserRepository;
 import com.test.GMHKCensusApp.exceptions.GMHKApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -27,19 +26,15 @@ public class GMHKLoginController {
     private GMHKUserRepository gmhkUserRepository;
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("login") GMHKLogin gmhkLogin, HttpSession session) {
+    public String login(@ModelAttribute("login") GMHKLogin gmhkLogin, HttpSession session, Model model) {
 
-        GMHKUser gmhkUser = gmhkUserRepository.searchByEmail(gmhkLogin.getEmail());
+        GMHKUser gmhkUser = gmhkUserRepository.searchByEmail(gmhkLogin.getEmail(), gmhkLogin.getPassword());
         if (gmhkUser == null) {
-            throw new GMHKApplicationException("No user is found");
+            model.addAttribute("loginMsg", "The username or password you entered is incorrect.");
+            return "GMHKLogin";
         }
         session.setAttribute("user", gmhkUser);
         return "GMHKHome"; // forward:/userprofile
 
-    }
-
-    @ExceptionHandler(GMHKApplicationException.class)
-    public String handleException() {
-        return "GMHKLogin";
     }
 }

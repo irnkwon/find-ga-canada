@@ -5,6 +5,7 @@
     Time: 11:18 p.m.
 --%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +19,16 @@
         <jsp:include page="GMHKBanner.jsp" />
         <h1>Login</h1>
         <h3>Sign in with your FindGACanada email</h3>
+        <c:choose>
+            <c:when test="${!empty(loginMsg)}">
+                <h5 class="success-msg">${loginMsg}</h5>
+            </c:when>
+            <c:otherwise></c:otherwise>
+        </c:choose>
         <form:form action="/login" method="post" class="auth-form" modelAttribute="login">
+            <form:errors path="email" cssClass="error"/>
             <form:input type="email" placeholder="Email" class="auth-input" path="email" />
+            <form:errors path="password" cssClass="error"/>
             <form:input type="password" placeholder="Password" class="auth-input" path="password" />
             <input type="submit" value="Sign in" class="search-btn" />
         </form:form>

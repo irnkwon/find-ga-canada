@@ -1,6 +1,6 @@
 /*
     GMHKUserRepository.java
-    Created by Haeryun Kwon
+    Created by Gongzi Muchang
     Date: 2020-03-25
     Time: 3:04 a.m.
 */
@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 public interface GMHKUserRepository
     extends CrudRepository<GMHKUser, Integer> {
 
-    @Query("select u from GMHKUser u where u.email = :email")
-    GMHKUser searchByEmail(@Param("email") String EmailAddress);
+    @Query("select u from GMHKUser u where u.email = :email and u.password = :password")
+    GMHKUser searchByEmail(@Param("email") String EmailAddress, @Param("password") String Password);
 
 }
